@@ -32,32 +32,32 @@ jobs:
           echo "Packaging the application..."
           # Add your packaging commands here
 
-  manual-approval:
-    name: Manual Approval
+  #manual-approval:
+  #  name: Manual Approval
+  #  runs-on: ubuntu-latest
+  #  needs: package
+  #  if: success() # Only proceed if terraform-plan job succeeds
+    
+  #  permissions:
+  #    issues: write
+
+  #  steps:
+  #    - name: Await Manual Approval
+  #      uses: trstringer/manual-approval@v1
+  #      with:
+  #        secret: ${{ github.TOKEN }}
+  #        approvers: naresh-egov # Replace with GitHub usernames, with the free version you can only have an issue assigned to one username
+  #        minimum-approvals: 1
+  #        issue-title: "Manual Approval Required for Deployment"
+  #        issue-body: "Please approve or deny the deployment."
+  #    - name: Approved
+  #      run: |
+  #        echo "Deploying the application..."
+        
+  Dev-deploy:
+    name: Dev Deploy Application
     runs-on: ubuntu-latest
     needs: package
-    if: success() # Only proceed if terraform-plan job succeeds
-    
-    permissions:
-      issues: write
-
-    steps:
-      - name: Await Manual Approval
-        uses: trstringer/manual-approval@v1
-        with:
-          secret: ${{ github.TOKEN }}
-          approvers: naresh-egov # Replace with GitHub usernames, with the free version you can only have an issue assigned to one username
-          minimum-approvals: 1
-          issue-title: "Manual Approval Required for Deployment"
-          issue-body: "Please approve or deny the deployment."
-      - name: Approved
-        run: |
-          echo "Deploying the application..."
-        
-  deploy:
-    name: Deploy Application
-    runs-on: ubuntu-latest
-    needs: manual-approval
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
@@ -65,4 +65,32 @@ jobs:
       - name: Deploy Application
         run: |
           echo "Deploying the application..."
-          # Add your deployment commands here      
+          # Add your deployment commands here 
+
+  QA-deploy:
+    name: QA Deploy Application
+    runs-on: ubuntu-latest
+    needs: package
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Deploy Application
+        run: |
+          echo "Deploying the application..."
+          # Add your deployment commands here 
+
+
+  UAT-deploy:
+    name: UAT Deploy Application
+    runs-on: ubuntu-latest
+    needs: package
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Deploy Application
+        run: |
+          echo "Deploying the application..."
+          # Add your deployment commands here 
+
