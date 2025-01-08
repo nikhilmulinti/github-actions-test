@@ -44,4 +44,4 @@ jobs:
         run: |
           echo "Deploying the application..."
           # Add your deployment commands here
-    if: github.event_name == 'workflow_dispatch'      
+    if: ${{ github.event_name == 'workflow_dispatch' || always() }}      
