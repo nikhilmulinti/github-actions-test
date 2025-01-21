@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main # Trigger build and package jobs on pushes to the main branch
-  workflow_dispatch: # Allows manual trigger for deployment jobs
+  workflow_dispatch: # Allows manual trigger for deployment job
 
 jobs:
   build:
